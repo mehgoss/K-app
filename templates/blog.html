@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog | Khumoitsile Consulting - Digital Marketing Pretoria</title>
+    <meta name="description" content="Read the latest insights on digital marketing and social media management from Khumoitsile Consulting, Pretoria, Mabopane Lebanon.">
+    <meta name="keywords" content="digital marketing blog Pretoria, social media management tips, SEO Pretoria">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Khumoitsile Consulting">
+    <meta property="og:title" content="Blog | Khumoitsile Consulting Pretoria">
+    <meta property="og:description" content="Explore digital marketing and social media tips from our Pretoria-based agency.">
+    <meta property="og:image" content="{{ url_for('static', filename='img/markerting.jpg') }}">
+    <meta property="og:url" content="https://www.khumoitsileconsulting.com/blog">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="canonical" href="https://www.khumoitsileconsulting.com/blog">
+</head>
+<body>
+    <!-- Header (same as index.html, with blog link active) -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='img/logo2.jpg') }}" alt="Khumoitsile Consulting Logo" width="60" height="60">
+                <div class="logo-text">KHUMOITSILE CONSULTING</div>
+            </div>
+            <div class="mobile-toggle">☰</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <li><a href="{{ url_for('blog') }}" class="active">Blog</a></li>
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Blog Section -->
+    <section class="blog">
+        <div class="section-title">
+            <h1>Digital Marketing Insights</h1>
+        </div>
+        <div class="blog-container">
+            {% for post in posts %}
+            <article class="blog-post">
+                <h2>{{ post.title }}</h2>
+                <p class="meta">Published on {{ post.created_at.strftime('%B %d, %Y') }}</p>
+                <div class="content">{{ post.content | safe }}</div>
+            </article>
+            {% endfor %}
+            {% if not posts %}
+            <p>No blog posts available. Check back soon!</p>
+            {% endif %}
+        </div>
+        <!-- Admin-only form to generate new posts -->
+        {% if admin %}
+        <div class="blog-generate">
+            <h2>Generate New Blog Post</h2>
+            <form method="POST" action="{{ url_for('generate_blog') }}">
+                <div class="form-group">
+                    <label for="prompt">Blog Topic or Prompt</label>
+                    <textarea id="prompt" name="prompt" rows="4" required placeholder="e.g., Tips for social media marketing in Pretoria"></textarea>
+                </div>
+                <button type="submit" class="cta-button">Generate Post</button>
+            </form>
+        </div>
+        {% endif %}
+    </section>
+
+    <!-- Footer (same as index.html) -->
+    <footer>
+        <!-- Same footer content, with blog link active -->
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
