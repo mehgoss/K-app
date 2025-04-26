@@ -786,3 +786,132 @@ footer {
 .blog-generate .cta-button {
     width: 100%;
 }
+/* About Section */
+.about-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    align-items: center;
+}
+
+.about-content {
+    flex: 1;
+    min-width: 300px;
+}
+
+.about-content h3 {
+    font-size: 1.5rem;
+    color: var(--primary-blue);
+    margin: 1rem 0 0.5rem;
+}
+
+.about-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.about-content .service-list {
+    margin: 1rem 0;
+}
+
+.about-content .service-list li {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.about-content .service-list li::before {
+    content: '•';
+    color: var(--primary-red);
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+/* Services Section (already in index.html response) */
+.services-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.service-card {
+    flex: 1;
+    min-width: 300px;
+    max-width: 350px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.service-header {
+    padding: 1.5rem;
+    background-color: var(--primary-blue);
+    color: #fff;
+}
+
+.service-header h3 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.service-header p {
+    font-size: 1rem;
+    margin: 0.5rem 0 0;
+}
+
+.service-content {
+    padding: 1.5rem;
+}
+
+.service-list li {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.service-list li::before {
+    content: '•';
+    color: var(--primary-red);
+    font-size: 1.5rem;
+    margin-right: 10px;
+}
+
+.service-footer {
+    padding: 0 1.5rem 1.5rem;
+    text-align: center;
+}
+
+.services-benefits {
+    max-width: 1400px;
+    margin: 3rem auto 0;
+    padding: 0 5%;
+    text-align: center;
+}
+
+.services-benefits h3 {
+    font-size: 1.8rem;
+    color: var(--primary-blue);
+    margin-bottom: 1.5rem;
+}
+
+.services-benefits .service-list {
+    text-align: left;
+    max-width: 800px;
+    margin: 0 auto;
+}
