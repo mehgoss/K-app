@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Marketing & Social Media Management in Pretoria | Khumoitsile Consulting</title>
+    <meta name="description" content="Khumoitsile Consulting, a premier digital marketing agency in Pretoria, Mabopane Lebanon, offers expert social media management, SEO, PPC, and content marketing services.">
+    <meta name="keywords" content="digital marketing Pretoria, social media management Mabopane Lebanon, SEO services Pretoria, PPC advertising, content marketing">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Khumoitsile Consulting">
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Digital Marketing & Social Media Management | Khumoitsile Consulting Pretoria">
+    <meta property="og:description" content="Elevate your brand with our digital marketing and social media management services in Pretoria, Mabopane Lebanon.">
+    <meta property="og:image" content="{{ url_for('static', filename='img/markerting.jpg') }}">
+    <meta property="og:url" content="https://www.khumoitsileconsulting.com">
+    <meta property="og:type" content="website">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Digital Marketing & Social Media Management in Pretoria">
+    <meta name="twitter:description" content="Khumoitsile Consulting offers expert digital marketing services in Pretoria, including SEO, PPC, and social media management.">
+    <meta name="twitter:image" content="{{ url_for('static', filename='img/markerting.jpg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://www.khumoitsileconsulting.com">
+</head>
+<body>
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Khumoitsile Consulting",
+        "description": "Premier digital marketing and social media management agency in Pretoria, Mabopane Lebanon, offering SEO, PPC, content creation, and social media services.",
+        "url": "https://www.khumoitsileconsulting.com",
+        "telephone": "+27 76 494 4704",
+        "email": "khumoitsilec@gmail.com",
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Pretoria, Mabopane Lebanon",
+            "addressCountry": "ZA"
+        },
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "08:00",
+                "closes": "18:00"
+            },
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": "Saturday",
+                "opens": "09:00",
+                "closes": "13:00"
+            }
+        ],
+        "sameAs": [
+            "https://www.facebook.com/khumoitsileconsulting",
+            "https://www.twitter.com/khumoitsile",
+            "https://www.linkedin.com/company/khumoitsileconsulting",
+            "https://www.instagram.com/khumoitsileconsulting"
+        ]
+    }
+    </script>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <img src="{{ url_for('static', filename='img/logo2.jpg') }}" alt="Khumoitsile Consulting Logo" width="60" height="60">
+                <div class="logo-text">KHUMOITSILE CONSULTING</div>
+            </div>
+            <div class="mobile-toggle">☰</div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="{{ url_for('index') }}" class="active">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <!-- <li><a href="{{ url_for('portfolio') }}">Portfolio</a></li> -->
+                    <!-- <li><a href="{{ url_for('blog') }}">Blog</a></li> -->
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Premier Digital Marketing Agency in Pretoria</h1>
+                <p>Khumoitsile Consulting specializes in <strong>digital marketing</strong> and <strong>social media management</strong> in Pretoria, Mabopane Lebanon, helping businesses grow with SEO, PPC, and engaging content.</p>
+                <a href="{{ url_for('services') }}" class="cta-button">Explore Our Services</a>
+            </div>
+            <div class="hero-image">
+                <img src="{{ url_for('static', filename='img/markerting.jpg') }}" alt="Digital Marketing Services in Pretoria" width="600" height="400">
+            </div>
+        </div>
+    </section>
+
+    <!-- Red Diagonal Divider -->
+    <div class="red-diagonal"></div>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-title">
+            <h2>Our Digital Marketing & Social Media Services</h2>
+        </div>
+        <div class="services-container">
+            {% for service in services %}
+            <div class="service-card">
+                <div class="service-header">
+                    <h3>{{ service.title }}</h3>
+                    <p>{{ service.description }}</p>
+                </div>
+                <div class="service-content">
+                    <ul class="service-list">
+                        {% for item in service.items %}
+                        <li><strong>{{ item.name }}</strong>: {{ item.detail }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="service-footer">
+                    <a href="{{ url_for('services') }}" class="cta-button">Learn More</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="services-benefits">
+            <h3>Benefits of Our Services</h3>
+            <ul class="service-list">
+                {% for benefit in benefits %}
+                <li><strong>{{ benefit.name }}</strong>: {{ benefit.detail }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="{{ url_for('static', filename='img/team.jpg') }}" alt="Digital Marketing Team in Pretoria" width="600" height="400">
+            </div>
+            <div class="about-content">
+                <h2>About Khumoitsile Consulting</h2>
+                <p>Based in Pretoria, Mabopane Lebanon, Khumoitsile Consulting is a leading <strong>digital marketing agency</strong> dedicated to helping businesses thrive online. Our experts deliver tailored <strong>social media management</strong>, SEO, PPC, and content marketing solutions.</p>
+                <p>We focus on measurable results, fostering strong audience connections, and driving growth. Partner with us to elevate your digital presence in Pretoria and beyond.</p>
+                <a href="{{ url_for('about') }}" class="cta-button">Read More About Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="section-title">
+            <h2>What Our Clients Say</h2>
+        </div>
+        <div class="testimonials-container">
+            {% for testimonial in testimonials %}
+            <div class="testimonial-slide {{ 'active' if loop.index0 == 0 }}">
+                <div class="testimonial-content">{{ testimonial.content }}</div>
+                <div class="testimonial-author">{{ testimonial.author }}</div>
+                <div class="testimonial-company">{{ testimonial.company }}</div>
+            </div>
+            {% endfor %}
+            <div class="testimonial-nav">
+                {% for testimonial in testimonials %}
+                <div class="testimonial-dot {{ 'active' if loop.index0 == 0 }}" data-slide="{{ loop.index0 }}"></div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2>Ready to Boost Your Digital Presence?</h2>
+            <p>Contact our <strong>digital marketing agency</strong> in Pretoria for a free consultation and discover how we can elevate your brand.</p>
+            <a href="{{ url_for('contact') }}" class="cta-button">Schedule a Consultation</a>
+        </div>
+    </section>
+
+    <!-- Contact Info -->
+    <section class="contact-info" id="contact">
+        <div class="section-title">
+            <h2>Get In Touch</h2>
+        </div>
+        <div class="contact-container">
+            <div class="contact-item">
+                <div class="contact-icon">✉️</div>
+                <h3>Email Us</h3>
+                <p><a href="mailto:khumoitsilec@gmail.com">khumoitsilec@gmail.com</a></p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📞</div>
+                <h3>Call Us</h3>
+                <p><a href="tel:+27764944704">076 494 4704</a></p>
+            </div>
+            <div class="contact-item">
+                <div class="contact-icon">📍</div>
+                <h3>Visit Us</h3>
+                <p>Pretoria, Mabopane Lebanon</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>About Us</h3>
+                <p>Khumoitsile Consulting is a leading <strong>digital marketing agency</strong> in Pretoria, Mabopane Lebanon, specializing in SEO, PPC, social media management, and content marketing.</p>
+                <div class="social-icons">
+                    <a href="#" class="social-icon" aria-label="Facebook">f</a>
+                    <a href="#" class="social-icon" aria-label="Twitter">t</a>
+                    <a href="#" class="social-icon" aria-label="LinkedIn">in</a>
+                    <a href="#" class="social-icon" aria-label="Instagram">ig</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('index') }}">Home</a></li>
+                    <li><a href="{{ url_for('about') }}">About</a></li>
+                    <li><a href="{{ url_for('services') }}">Services</a></li>
+                    <!-- <li><a href="{{ url_for('portfolio') }}">Portfolio</a></li> -->
+                    <!-- <li><a href="{{ url_for('blog') }}">Blog</a></li> -->
+                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Our Services</h3>
+                <ul class="footer-links">
+                    <li><a href="{{ url_for('services') }}">Social Media Management</a></li>
+                    <li><a href="{{ url_for('services') }}">SEO Services</a></li>
+                    <li><a href="{{ url_for('services') }}">PPC Advertising</a></li>
+                    <li><a href="{{ url_for('services') }}">Content Marketing</a></li>
+                    <li><a href="{{ url_for('services') }}">Email Marketing</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Business Hours</h3>
+                <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                <p>Saturday: 9:00 AM - 1:00 PM</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2025 Khumoitsile Consulting. All Rights Reserved.
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
