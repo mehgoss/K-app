@@ -110,7 +110,7 @@ def about():
     return render_template('about.html')
 
 @app.route('/services')
-def services():
+def services_page():
     return render_template('poster-design.html', services=services)
 
 @app.route('/contact')
@@ -141,7 +141,7 @@ def generate_sample_posts():
                     'prompt': f'Write a 500-word blog post about {prompt} for a digital marketing agency in Pretoria, Mabopane Lebanon. Include a catchy title and format in HTML with <h2>, <p>, and <ul> where appropriate.',
                     'stream': False
                 }),
-                timeout=15  # Increased timeout to 15 seconds
+                timeout=20  # Increased timeout to 20 seconds
             )
             if response.status_code == 200:
                 data = response.json()
