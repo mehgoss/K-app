@@ -111,7 +111,7 @@ def about():
 
 @app.route('/services')
 def services_page():
-    return render_template('poster-design.html', services=services)
+    return render_template('poster-design.html', service=services)
 
 @app.route('/contact')
 def contact():
