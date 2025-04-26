@@ -30,9 +30,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
           pip install frozen-flask
-          mv css static/css
-          mv js static/js
-          mv img static/img
 
       # Install Ollama
       - name: Install Ollama
@@ -42,10 +39,16 @@ jobs:
           sleep 10  # Wait for Ollama to start
           ollama pull llama3.2
 
+      # Create db directory
+      - name: Create db directory
+        run: |
+          mkdir -p db
+          ls -la
+          pwd
+
       # Generate static files with Frozen-Flask
       - name: Generate static files
         run: |
-
           python freeze.py
         env:
           FLASK_ENV: production
