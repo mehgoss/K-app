@@ -15,18 +15,14 @@ jobs:
     steps:
       - name: Build and Deploy
         run: |
-          # Checkout code
+          # Checkout code using actions/checkout@v4
+          git clone https://github.com/${{ github.repository }} .
           git checkout main
           # Set up Python
           curl -sSL https://install.python-poetry.org | python3 -
           export PATH="$HOME/.local/bin:$PATH"
           python3 -m pip install --upgrade pip
           pip install -r requirements.txt frozen-flask
-          # Install Ollama
-          curl -fsSL https://ollama.com/install.sh | sh
-          ollama serve &
-          sleep 10  # Increased to 10 seconds for reliability
-          ollama pull llama3.2
           # Create db directory
           mkdir -p db
           touch db/blog.db
@@ -45,3 +41,4 @@ jobs:
           git push origin gh-pages --force
         env:
           FLASK_ENV: production
+          GIT_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
