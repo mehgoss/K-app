@@ -92,6 +92,11 @@ FALLBACK_POSTS = [
         "title": "Welcome to Our Blog",
         "content": "<p>Stay tuned for insights on digital marketing and social media management in Pretoria, Mabopane Lebanon.</p>",
         "created_at": datetime.utcnow()
+    },
+    {
+        "title": "Digital Marketing Tips",
+        "content": "<p>Learn how to boost your online presence with our expert strategies.</p>",
+        "created_at": datetime.utcnow()
     }
 ]
 
@@ -136,7 +141,7 @@ def generate_sample_posts():
                     'prompt': f'Write a 500-word blog post about {prompt} for a digital marketing agency in Pretoria, Mabopane Lebanon. Include a catchy title and format in HTML with <h2>, <p>, and <ul> where appropriate.',
                     'stream': False
                 }),
-                timeout=10  # Timeout after 10 seconds
+                timeout=15  # Increased timeout to 15 seconds
             )
             if response.status_code == 200:
                 data = response.json()
@@ -149,9 +154,11 @@ def generate_sample_posts():
                 db.session.commit()
             else:
                 print(f"Error generating post for {prompt}: {response.status_code}")
+                post = BlogPost(title=prompt, content=f"<p>Content generation failed for {prompt}. Please try again later.</p>")
+                db.session.add(post)
+                db.session.commit()
         except Exception as e:
             print(f"Error generating post for {prompt}: {e}")
-            # Use fallback post if Ollama fails
             post = BlogPost(title=prompt, content=f"<p>Content generation failed for {prompt}. Please try again later.</p>")
             db.session.add(post)
             db.session.commit()
