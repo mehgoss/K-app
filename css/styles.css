@@ -734,3 +734,55 @@ footer {
 .form-group textarea {
     resize: vertical;
 }
+.blog-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 5%;
+}
+
+.blog-post {
+    margin-bottom: 3rem;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 2rem;
+}
+
+.blog-post h2 {
+    font-size: 2rem;
+    color: var(--primary-blue);
+    margin-bottom: 0.5rem;
+}
+
+.blog-post .meta {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 1rem;
+}
+
+.blog-post .content {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.blog-generate {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+}
+
+.blog-generate .form-group {
+    margin-bottom: 1.5rem;
+}
+
+.blog-generate textarea {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.blog-generate .cta-button {
+    width: 100%;
+}
