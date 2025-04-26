@@ -1,5 +1,5 @@
 from flask_frozen import Freezer
-from app import app, db, generate_sample_posts
+from app import app, db, BlogPost, generate_sample_posts
 import os
 
 # Ensure db directory exists
