@@ -3,9 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 import requests
 import json
 from datetime import datetime
+import os
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db/blog.db'
+# Use absolute path for SQLite database
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.abspath(os.path.join(os.path.dirname(__file__), "db", "blog.db"))}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -103,45 +105,4 @@ def contact():
 
 @app.route('/blog')
 def blog():
-    posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
-    return render_template('blog.html', posts=posts, admin=False)  # Admin disabled for static site
-
-def generate_sample_posts():
-    """Generate sample blog posts using Ollama during build."""
-    prompts = [
-        "Tips for social media marketing in Pretoria",
-        "How to improve SEO for businesses in Mabopane Lebanon",
-        "Benefits of PPC advertising for small businesses"
-    ]
-    for prompt in prompts:
-        try:
-            response = requests.post(
-                'http://localhost:11434/api/generate',
-                headers={'Content-Type': 'application/json'},
-                data=json.dumps({
-                    'model': 'llama3.2',
-                    'prompt': f'Write a 500-word blog post about {prompt} for a digital marketing agency in Pretoria, Mabopane Lebanon. Include a catchy title and format in HTML with <h2>, <p>, and <ul> where appropriate.',
-                    'stream': False
-                })
-            )
-            if response.status_code == 200:
-                data = response.json()
-                content = data.get('response', '')
-                title_start = content.find('<h2>') + 4
-                title_end = content.find('</h2>')
-                title = content[title_start:title_end] if title_start > 3 and title_end > title_start else prompt
-                post = BlogPost(title=title, content=content)
-                db.session.add(post)
-                db.session.commit()
-            else:
-                print(f"Error generating post for {prompt}: {response.status_code}")
-        except Exception as e:
-            print(f"Error generating post for {prompt}: {e}")
-
-if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-        # Generate sample posts for local testing
-        if not BlogPost.query.first():
-            generate_sample_posts()
-    app.run(debug=True)
+    posts = BlogPost.query.order_by(BlogPost.created
