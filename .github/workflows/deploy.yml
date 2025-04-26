@@ -11,52 +11,37 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    timeout-minutes: 30  # Set job timeout to 30 minutes
     steps:
-      # Checkout the repository
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # Set up Python
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-          cache: 'pip'
-
-      # Install dependencies
-      - name: Install dependencies
+      - name: Build and Deploy
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
-          pip install frozen-flask
-
-      # Install Ollama
-      - name: Install Ollama
-        run: |
+          # Checkout code
+          git checkout main
+          # Set up Python
+          curl -sSL https://install.python-poetry.org | python3 -
+          export PATH="$HOME/.local/bin:$PATH"
+          python3 -m pip install --upgrade pip
+          pip install -r requirements.txt frozen-flask
+          # Install Ollama
           curl -fsSL https://ollama.com/install.sh | sh
           ollama serve &
-          sleep 10  # Wait for Ollama to start
+          sleep 10  # Increased to 10 seconds for reliability
           ollama pull llama3.2
-
-      # Create db directory
-      - name: Create db directory
-        run: |
+          # Create db directory
           mkdir -p db
+          touch db/blog.db
           ls -la
           pwd
-
-      # Generate static files with Frozen-Flask
-      - name: Generate static files
-        run: |
+          # Generate static files
           python freeze.py
+          # Deploy to GitHub Pages
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git checkout --orphan gh-pages
+          git rm -rf .
+          mv static/* .
+          git add .
+          git commit -m "Deploy to GitHub Pages"
+          git push origin gh-pages --force
         env:
           FLASK_ENV: production
-
-      # Deploy to GitHub Pages
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./static
-          keep_files: false
