@@ -1,5 +1,9 @@
 from flask_frozen import Freezer
 from app import app, db, generate_sample_posts
+import os
+
+# Ensure db directory exists
+os.makedirs('db', exist_ok=True)
 
 # Initialize Freezer
 freezer = Freezer(app)
