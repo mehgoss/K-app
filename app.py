@@ -103,7 +103,7 @@ FALLBACK_POSTS = [
 # Routes
 @app.route('/')
 def index():
-    return render_template('index.html', services=services, benefits=benefits, testimonials=testimonials)
+    return render_template('index.html', service=services, benefits=benefits, testimonials=testimonials)
 
 @app.route('/about')
 def about():
