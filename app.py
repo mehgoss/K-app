@@ -6,7 +6,7 @@ from datetime import datetime
 import os
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
-# Use absolute path for SQLite database
+# Absolute path for SQLite database
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.abspath(os.path.join(os.path.dirname(__file__), "db", "blog.db"))}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
@@ -86,6 +86,15 @@ testimonials = [
     }
 ]
 
+# Fallback blog posts if Ollama is unavailable
+FALLBACK_POSTS = [
+    {
+        "title": "Welcome to Our Blog",
+        "content": "<p>Stay tuned for insights on digital marketing and social media management in Pretoria, Mabopane Lebanon.</p>",
+        "created_at": datetime.utcnow()
+    }
+]
+
 # Routes
 @app.route('/')
 def index():
@@ -106,6 +115,8 @@ def contact():
 @app.route('/blog')
 def blog():
     posts = BlogPost.query.order_by(BlogPost.created_at.desc()).all()
+    if not posts:  # Use fallback if no posts
+        posts = [BlogPost(title=post["title"], content=post["content"], created_at=post["created_at"]) for post in FALLBACK_POSTS]
     return render_template('blog.html', posts=posts, admin=False)
 
 def generate_sample_posts():
@@ -124,7 +135,8 @@ def generate_sample_posts():
                     'model': 'llama3.2',
                     'prompt': f'Write a 500-word blog post about {prompt} for a digital marketing agency in Pretoria, Mabopane Lebanon. Include a catchy title and format in HTML with <h2>, <p>, and <ul> where appropriate.',
                     'stream': False
-                })
+                }),
+                timeout=10  # Timeout after 10 seconds
             )
             if response.status_code == 200:
                 data = response.json()
@@ -139,6 +151,10 @@ def generate_sample_posts():
                 print(f"Error generating post for {prompt}: {response.status_code}")
         except Exception as e:
             print(f"Error generating post for {prompt}: {e}")
+            # Use fallback post if Ollama fails
+            post = BlogPost(title=prompt, content=f"<p>Content generation failed for {prompt}. Please try again later.</p>")
+            db.session.add(post)
+            db.session.commit()
 
 if __name__ == '__main__':
     with app.app_context():
